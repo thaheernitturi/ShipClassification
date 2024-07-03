@@ -1,10 +1,60 @@
--> Identifying different types of vessels from bird-view images captured by UAVs (Unmanned Aerial Vehicles) in the maritime industry presents a challenge,primarily due to the substantial cost and time required for acquiring and
- annotating extensive datasets.
- ->To address these issues, The Viewpoint Adaptation Ensemble Contrastive Learning (VAECL) framework is introduced.
- ->Initially, we confront the scarcity of annotated data by developing an enhanced deep generative model (DGM) within VAECL. 
- ->This enables the model to learn from a limited set of vessel images and generate additional ones to augment the training process. 
- ->In addressing the challenge of accurate vessel identification, we leverage transfer learning through a pre-trained Inception V3 network, specifically adapting the model for processing bird-view images captured by UAVs.
- ->Introducing a contrastive learning paradigm, we enhance the model's ability to discern between different vessel types using a novel loss function, thereby improving feature representation. 
- ->Furthermore, we incorporate an ensemble learning algorithm to fine-tune vessel type recognition, addressing potential challenges related to model variability and uncertainty. 
- ->This approach aims to offer a robust solution for UAV-based maritime vessel type identification, mitigating the difficulties associated with limited annotated data and the
- labor-intensive nature of image annotation tasks
+# A Viewpoint Adaptation Ensemble Contrastive Learning Approach for Vessel Type Recognition with Limited Data
+## Setup
+Code was developed and tested on Ubuntu 22.04 with Python 3.8 and TensorFlow 2.8.0. You can setup a virtual environment by running the code like this:
+```
+python3 -m venv env
+source env/bin/activate
+cd VAECL-main/VAECL
+pip3 install -r requirements.txt
+```
+## Download the DVTR Dataset
+Run the following commands to download data sets from Google drive.
+```
+gdown https://drive.google.com/uc?id=132b9OeYS_lWbTjYuKXvmqIhPobCAREnq
+unzip DVTR
+rm DVTR.zip
+```
+If the download is not working, pleae use the following link to manually download the dataset
+```
+https://drive.google.com/uc?id=132b9OeYS_lWbTjYuKXvmqIhPobCAREnq
+```
+## Download the trained generator
+Run the following commands to download the trained generator.
+```
+cd c-wdcgan-gp
+gdown https://drive.google.com/uc?id=1u8IDDmBvVMHenREeUkklGdhZ3RskqB7I
+unzip save_gen
+rm save_gen.zip
+```
+If the download is not working, pleae use the following link to manually download the generator
+```
+https://drive.google.com/uc?id=1u8IDDmBvVMHenREeUkklGdhZ3RskqB7I
+```
+## Download the trained VAEL model
+Run the following commands to download the trained VAECL model.
+```
+cd ../models
+gdown https://drive.google.com/uc?id=1lXP8EOSj4HVGa3PAyExQ2h4MQKLZ9H1T
+unzip save
+rm save.zip
+```
+If the download is not working, pleae use the following link to manually download the model
+```
+https://drive.google.com/uc?id=1lXP8EOSj4HVGa3PAyExQ2h4MQKLZ9H1T
+```
+## Running Model
+You can run the following command to replicate the results:
+```
+python3 vaecl.py
+```
+## Training the VAECL Model
+You can run the following command to train the VAECL model.
+```
+python3 vaecl.py --train True
+```
+## Training the C-WDCGAN-GP Model
+You can run the following command to train the C-WDCGAN-GP model.
+```
+cd ../c-wdcgan-gp
+python3 train.py
+```
